@@ -1,5 +1,8 @@
-import 'package:esilv_shop/presentation/page/list_product/list_product_page.dart';
+import 'package:esilv_shop/presentation/page/detail_page/detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'model/cart.dart';
 
 void main() {
   //final maListeDeProduit = [
@@ -22,15 +25,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        textTheme: TextTheme(
-          titleLarge: TextStyle(fontStyle: FontStyle.italic),
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => Cart(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          textTheme: TextTheme(
+            titleLarge: TextStyle(fontStyle: FontStyle.italic),
+          ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        home: DetailPage(),
       ),
-      home: ListProductPage(),
     );
   }
 }
