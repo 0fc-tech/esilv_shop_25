@@ -16,4 +16,18 @@ class Product {
   String getPriceInEuros() {
     return "${(price / 100).toStringAsFixed(2)}€";
   }
+
+  static int priceNumToInt(num priceWithCent) {
+    return (priceWithCent * 100).toInt();
+  }
+
+  factory Product.fromJson(Map<String, dynamic> map) {
+    return Product(
+      name: map['title'] as String,
+      description: map['description'] as String,
+      price: priceNumToInt(map['price']),
+      category: map['category'] as String,
+      image: map['image'] as String,
+    );
+  }
 }

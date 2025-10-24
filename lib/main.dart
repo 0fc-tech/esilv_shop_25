@@ -1,4 +1,4 @@
-import 'package:esilv_shop/presentation/page/demo_listview.dart';
+import 'package:esilv_shop/presentation/page/list_product/list_product_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           titleLarge: TextStyle(fontStyle: FontStyle.italic),
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: DemoListview(),
+      home: ListProductPage(),
     );
   }
 }
