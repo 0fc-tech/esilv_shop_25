@@ -2,6 +2,7 @@ import 'package:esilv_shop/data/product_repository.dart';
 import 'package:esilv_shop/model/cart.dart';
 import 'package:esilv_shop/model/product.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ListProductPage extends StatelessWidget {
@@ -14,7 +15,9 @@ class ListProductPage extends StatelessWidget {
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.grid_view_rounded)),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.go("/cart");
+            },
             icon: Badge(
               label: Text(context.watch<Cart>().length().toString()),
               child: Icon(Icons.shopping_cart),
@@ -54,17 +57,15 @@ class _ListTileProductState extends State<ListTileProduct> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => context.go("/detail/${widget.product.id}"),
       title: Text(widget.product.name, maxLines: 2),
       subtitle: Text(
-        widget.product.getPriceInEuros() + quantity.toString(),
+        widget.product.getPriceInEuros(),
         style: Theme.of(context).textTheme.titleMedium,
       ),
       trailing: TextButton(
         onPressed: () {
           context.read<Cart>().add(widget.product);
-          setState(() {
-            quantity++;
-          });
         },
         child: Text("AJOUTER"),
       ),

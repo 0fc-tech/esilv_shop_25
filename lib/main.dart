@@ -1,4 +1,4 @@
-import 'package:esilv_shop/presentation/page/detail_page/detail_page.dart';
+import 'package:esilv_shop/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context) => Cart(),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Flutter Demo',
         theme: ThemeData(
           textTheme: TextTheme(
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           ),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
-        home: DetailPage(),
+        routerConfig: router,
       ),
     );
   }

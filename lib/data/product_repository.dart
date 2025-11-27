@@ -17,4 +17,17 @@ class ProductRepository {
       return Future.error("Erreur de connexion");
     }
   }
+
+  Future<Product> getProductById(int id) async {
+    final response = await get(
+      Uri.parse("https://fakestoreapi.com/products/$id"),
+    );
+    if (response.statusCode == 200) {
+      final responseBody = response.body;
+      final Map<String, dynamic> productJson = jsonDecode(responseBody);
+      return Product.fromJson(productJson);
+    } else {
+      return Future.error("Erreur de connexion");
+    }
+  }
 }

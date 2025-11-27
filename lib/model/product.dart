@@ -1,4 +1,5 @@
 class Product {
+  int id;
   String name;
   String description;
   int price;
@@ -6,6 +7,7 @@ class Product {
   String image;
 
   Product({
+    required this.id,
     required this.name,
     required this.description,
     required this.price,
@@ -23,6 +25,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> map) {
     return Product(
+      id: map['id'] as int,
       name: map['title'] as String,
       description: map['description'] as String,
       price: priceNumToInt(map['price']),
