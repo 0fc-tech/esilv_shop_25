@@ -1,6 +1,6 @@
 import 'package:esilv_shop/data/product_repository.dart';
 import 'package:esilv_shop/model/cart.dart';
-import 'package:esilv_shop/model/product.dart';
+import 'package:esilv_shop/presentation/common/list_product.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -30,46 +30,12 @@ class ListProductPage extends StatelessWidget {
         future: ProductRepository().getProducts(),
         builder: (context, asyncSnapshot) {
           if (asyncSnapshot.hasData && asyncSnapshot.data != null) {
-            return ListView.builder(
-              itemCount: asyncSnapshot.data!.length,
-              itemBuilder: (context, index) =>
-                  ListTileProduct(asyncSnapshot.data![index]),
-            );
+            return ListProduct(listProducts: asyncSnapshot.data!);
           } else {
             return Container();
           }
         },
       ),
-    );
-  }
-}
-
-class ListTileProduct extends StatefulWidget {
-  final Product product;
-  const ListTileProduct(this.product, {super.key});
-
-  @override
-  State<ListTileProduct> createState() => _ListTileProductState();
-}
-
-class _ListTileProductState extends State<ListTileProduct> {
-  int quantity = 0;
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () => context.go("/detail/${widget.product.id}"),
-      title: Text(widget.product.name, maxLines: 2),
-      subtitle: Text(
-        widget.product.getPriceInEuros(),
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
-      trailing: TextButton(
-        onPressed: () {
-          context.read<Cart>().add(widget.product);
-        },
-        child: Text("AJOUTER"),
-      ),
-      leading: Image.network(widget.product.image, width: 60),
     );
   }
 }

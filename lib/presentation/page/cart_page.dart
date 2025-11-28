@@ -1,5 +1,6 @@
 //stless
 import 'package:esilv_shop/model/cart.dart';
+import 'package:esilv_shop/presentation/common/list_product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,10 @@ class CartPage extends StatelessWidget {
           if (cart.length() == 0) {
             return EmptyCart();
           } else {
-            return Placeholder(); //ListCart();
+            return ListProduct(
+              isAddingMode: false,
+              listProducts: cart.products,
+            ); //ListCart();
           }
         },
       ),
