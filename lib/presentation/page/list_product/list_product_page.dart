@@ -2,13 +2,13 @@ import 'package:esilv_shop/data/product_repository.dart';
 import 'package:esilv_shop/model/cart.dart';
 import 'package:esilv_shop/presentation/common/list_product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-class ListProductPage extends StatelessWidget {
+class ListProductPage extends ConsumerWidget {
   const ListProductPage({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Liste"),
@@ -19,7 +19,7 @@ class ListProductPage extends StatelessWidget {
               context.go("/cart");
             },
             icon: Badge(
-              label: Text(context.watch<Cart>().length().toString()),
+              label: Text(ref.watch(cartProvider).length.toString()),
               child: Icon(Icons.shopping_cart),
             ),
           ),

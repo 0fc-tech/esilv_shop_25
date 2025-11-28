@@ -1,8 +1,8 @@
 import 'package:esilv_shop/model/cart.dart';
 import 'package:esilv_shop/model/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class ListProduct extends StatelessWidget {
   final List<Product> listProducts;
@@ -23,17 +23,17 @@ class ListProduct extends StatelessWidget {
   }
 }
 
-class ListTileProduct extends StatefulWidget {
+class ListTileProduct extends ConsumerStatefulWidget {
   final Product product;
   final bool isAddingMode;
 
   const ListTileProduct(this.product, {super.key, this.isAddingMode = true});
 
   @override
-  State<ListTileProduct> createState() => _ListTileProductState();
+  ConsumerState<ListTileProduct> createState() => _ListTileProductState();
 }
 
-class _ListTileProductState extends State<ListTileProduct> {
+class _ListTileProductState extends ConsumerState<ListTileProduct> {
   int quantity = 0;
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,9 @@ class _ListTileProductState extends State<ListTileProduct> {
       trailing: TextButton(
         onPressed: () {
           if (widget.isAddingMode) {
-            context.read<Cart>().add(widget.product);
+            ref.read(cartProvider.notifier).add(widget.product);
           } else {
-            context.read<Cart>().remove(widget.product);
+            ref.read(cartProvider.notifier).remove(widget.product);
           }
         },
         child: Text(widget.isAddingMode ? "AJOUTER" : "RETIRER"),

@@ -1,8 +1,14 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../model/product.dart';
+
+part 'product_repository.g.dart';
+
+@riverpod
+ProductRepository getProductRepository(Ref ref) => ProductRepository();
 
 class ProductRepository {
   Future<List<Product>> getProducts() async {

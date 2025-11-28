@@ -2,30 +2,22 @@
 import 'package:esilv_shop/model/cart.dart';
 import 'package:esilv_shop/presentation/common/list_product.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends ConsumerWidget {
   const CartPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cart = ref.watch(cartProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('Panier Esilv Shop'),
       ),
-      body: Consumer<Cart>(
-        builder: (context, cart, child) {
-          if (cart.length() == 0) {
-            return EmptyCart();
-          } else {
-            return ListProduct(
-              isAddingMode: false,
-              listProducts: cart.products,
-            ); //ListCart();
-          }
-        },
-      ),
+      body: (cart.length == 0)
+          ? EmptyCart()
+          : ListProduct(isAddingMode: false, listProducts: cart), //ListCart();
     );
   }
 }

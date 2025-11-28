@@ -1,12 +1,14 @@
 import 'package:esilv_shop/data/product_repository.dart';
+import 'package:esilv_shop/presentation/page/demo_asyncvalue.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends ConsumerWidget {
   int productId;
   DetailPage(this.productId, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -23,6 +25,13 @@ class DetailPage extends StatelessWidget {
                 children: [
                   Center(child: Image.network(product.image, height: 240)),
                   SizedBox(height: 8),
+                  ref
+                      .watch(getDateTimeFromWebProvider)
+                      .when(
+                        data: (data) => Text(data.toIso8601String()),
+                        error: (_, __) => Icon(Icons.error),
+                        loading: () => CircularProgressIndicator(),
+                      ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(

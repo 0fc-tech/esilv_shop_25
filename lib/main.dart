@@ -1,8 +1,6 @@
 import 'package:esilv_shop/router.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'model/cart.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   //final maListeDeProduit = [
@@ -25,8 +23,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => Cart(),
+    return ProviderScope(
+      //create: (BuildContext context) => Cart(),
       child: MaterialApp.router(
         title: 'Flutter Demo',
         theme: ThemeData(
